@@ -103,8 +103,8 @@ class RegisterScreen extends StatelessWidget {
                                 );
                               }
                             },
-                            bcolor: AppColours.accentColor,
-                            tcolor: AppColours.primaryColor,
+                            bcolor: AppColours.primaryColor,
+                            tcolor: AppColours.backgroundColor,
                           ),
                           SizedBox(height: 20),
                           LoginWith(text: 'Or Register with'),

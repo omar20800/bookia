@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:bookia/core/colors/appcolour.dart';
 import 'package:bookia/core/validation/validation.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,21 @@ class _InputFieldState extends State<InputField> {
       obscureText: widget.ispassword ? showPassword : false,
       keyboardType: widget.keyboardType,
       decoration: InputDecoration(
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColours.redColor, width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColours.borderColor, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: AppColours.primaryColor,
+            width: 1,
+          ),
+        ),
         suffixIcon:
             widget.ispassword
                 ? IconButton(
@@ -57,14 +73,14 @@ class _InputFieldState extends State<InputField> {
                   },
                 )
                 : null,
-        fillColor: Color(0xFFf7f8f9),
+        fillColor: AppColours.lightGrayColor,
         filled: true,
         hintText: widget.hint,
         hintStyle: const TextStyle(
           fontFamily: 'DM Serif Display',
           fontSize: 15,
           fontWeight: FontWeight.w400,
-          color: Color(0xFF8391A1),
+          color: AppColours.grayColor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

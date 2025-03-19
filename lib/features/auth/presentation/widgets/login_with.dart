@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:bookia/core/colors/appcolour.dart';
 import 'package:bookia/features/auth/presentation/widgets/social_button.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class LoginWith extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(child: Divider(color: Colors.grey)),
+            Expanded(child: Divider(color: AppColours.grayColor)),
             SizedBox(width: 10),
             Text(
               text,
@@ -20,11 +21,11 @@ class LoginWith extends StatelessWidget {
                 fontFamily: 'DM Serif Display',
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFF6A707C),
+                color: AppColours.grayColor,
               ),
             ),
             SizedBox(width: 10),
-            Expanded(child: Divider(color: Colors.grey)),
+            Expanded(child: Divider(color: AppColours.grayColor)),
           ],
         ),
         SizedBox(height: 20),

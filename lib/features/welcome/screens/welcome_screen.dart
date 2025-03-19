@@ -37,8 +37,8 @@ class WelcomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 },
-                bcolor: AppColours.accentColor,
-                tcolor: AppColours.primaryColor,
+                bcolor: AppColours.primaryColor,
+                tcolor: AppColours.backgroundColor,
               ),
               SizedBox(height: 20),
               CustomButton(
@@ -49,9 +49,9 @@ class WelcomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => RegisterScreen()),
                   );
                 },
-                bcolor: AppColours.primaryColor,
-                tcolor: AppColours.secondaryColor,
-                sidecolor: AppColours.secondaryColor,
+                bcolor: AppColours.backgroundColor,
+                tcolor: AppColours.darkColor,
+                sidecolor: AppColours.borderColor,
               ),
             ],
           ),

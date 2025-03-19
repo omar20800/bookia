@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                                     fontFamily: 'DM Serif Display',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xFF8391A1),
+                                    color: AppColours.grayColor,
                                   ),
                                 ),
                               ),
@@ -112,8 +112,8 @@ class LoginScreen extends StatelessWidget {
                                 );
                               }
                             },
-                            bcolor: AppColours.accentColor,
-                            tcolor: AppColours.primaryColor,
+                            bcolor: AppColours.primaryColor,
+                            tcolor: AppColours.backgroundColor,
                           ),
                           SizedBox(height: 20),
                           LoginWith(text: 'Or Login with'),

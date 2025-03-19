@@ -30,7 +30,7 @@ class PasswordChanged extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black,
+                  color: AppColours.darkColor,
                   fontFamily: 'DM Serif Display',
                 ),
               ),
@@ -41,7 +41,7 @@ class PasswordChanged extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xff8391A1),
+                  color: AppColours.grayColor,
                   fontFamily: 'DM Serif Display',
                 ),
               ),
@@ -54,8 +54,8 @@ class PasswordChanged extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 },
-                bcolor: AppColours.accentColor,
-                tcolor: AppColours.primaryColor,
+                bcolor: AppColours.primaryColor,
+                tcolor: AppColours.backgroundColor,
               ),
             ],
           ),

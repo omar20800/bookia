@@ -4,7 +4,7 @@ import 'package:bookia/core/colors/appcolour.dart';
 import 'package:flutter/material.dart';
 
 class BackButtonTile extends StatelessWidget {
-  const BackButtonTile({ super.key});
+  const BackButtonTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,9 @@ class BackButtonTile extends StatelessWidget {
           shape: BoxShape.rectangle,
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColours.secondaryColor, width: 1),
+          border: Border.all(color: AppColours.borderColor, width: 1),
         ),
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: AppColours.secondaryColor,
-        ),
+        child: const Icon(Icons.arrow_back_ios, color: AppColours.darkColor),
       ),
     );
   }

@@ -41,11 +41,47 @@ class OtpVerification extends StatelessWidget {
                         fontFamily: 'DM Serif Display',
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff8391A1),
+                        color: AppColours.grayColor,
                       ),
                     ),
                     SizedBox(height: 30),
                     Pinput(
+                      errorPinTheme: PinTheme(
+                        width: 70,
+                        height: 60,
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Urbanist',
+                          fontWeight: FontWeight.w700,
+                          color: AppColours.darkColor,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColours.lightGrayColor,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: AppColours.redColor,
+                            width: 1.2,
+                          ),
+                        ),
+                      ),
+                      focusedPinTheme: PinTheme(
+                        width: 70,
+                        height: 60,
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Urbanist',
+                          fontWeight: FontWeight.w700,
+                          color: AppColours.darkColor,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColours.lightGrayColor,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: AppColours.primaryColor,
+                            width: 1.2,
+                          ),
+                        ),
+                      ),
                       validator: (value) => otpValid(value),
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       length: 4,
@@ -56,13 +92,13 @@ class OtpVerification extends StatelessWidget {
                           fontSize: 20,
                           fontFamily: 'Urbanist',
                           fontWeight: FontWeight.w700,
-                          color: Color(0xff2F2F2F),
+                          color: AppColours.darkColor,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColours.lightGrayColor,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: AppColours.accentColor,
+                            color: AppColours.borderColor,
                             width: 1.2,
                           ),
                         ),
@@ -76,7 +112,7 @@ class OtpVerification extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               duration: Duration(seconds: 1),
-                              backgroundColor: Colors.green,
+                              backgroundColor: AppColours.greenColor,
                               content: Text('Verifying Code'),
                             ),
                           );
@@ -90,15 +126,15 @@ class OtpVerification extends StatelessWidget {
                           );
                         }
                       },
-                      bcolor: AppColours.accentColor,
-                      tcolor: AppColours.primaryColor,
+                      bcolor: AppColours.primaryColor,
+                      tcolor: AppColours.backgroundColor,
                     ),
                     Expanded(child: SizedBox()),
                     RegisterLogin(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            backgroundColor: Colors.green,
+                            backgroundColor: AppColours.greenColor,
                             duration: Duration(seconds: 1),
                             content: Text('Resending Code'),
                           ),

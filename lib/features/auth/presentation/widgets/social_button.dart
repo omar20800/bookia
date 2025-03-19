@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:bookia/core/colors/appcolour.dart';
 import 'package:flutter/material.dart';
 
 class SocialButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class SocialButton extends StatelessWidget {
         child: Container(
           height: 56,
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xffE8ECF4), width: 1),
+            border: Border.all(color: AppColours.borderColor, width: 1),
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8),
           ),

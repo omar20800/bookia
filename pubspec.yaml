@@ -26,6 +26,11 @@ flutter:
         - asset: assets/fonts/DMSerifDisplay-Regular.ttf
         - asset: assets/fonts/DMSerifDisplay-Italic.ttf
           style: italic
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/Urbanist-VariableFont_wght.ttf
+        - asset: assets/fonts/Urbanist-Italic-VariableFont_wght.ttf
+          style: italic
   uses-material-design: true
   assets:
     - assets/images/

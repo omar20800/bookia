@@ -45,7 +45,7 @@ class ResetPassword extends StatelessWidget {
                         fontFamily: 'DM Serif Display',
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff8391A1),
+                        color: AppColours.grayColor,
                       ),
                     ),
                     SizedBox(height: 30),
@@ -75,8 +75,8 @@ class ResetPassword extends StatelessWidget {
                           );
                         }
                       },
-                      bcolor: AppColours.accentColor,
-                      tcolor: AppColours.primaryColor,
+                      bcolor: AppColours.primaryColor,
+                      tcolor: AppColours.backgroundColor,
                     ),
                   ],
                 ),

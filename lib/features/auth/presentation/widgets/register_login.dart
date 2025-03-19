@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:bookia/core/colors/appcolour.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +22,7 @@ class RegisterLogin extends StatelessWidget {
             fontFamily: 'DM Serif Display',
             fontSize: 15,
             fontWeight: FontWeight.w400,
-            color: AppColours.secondaryColor,
+            color: AppColours.darkColor,
           ),
         ),
         TextButton(
@@ -35,7 +33,7 @@ class RegisterLogin extends StatelessWidget {
           child: Text(
             textButton,
             style: TextStyle(
-              color: AppColours.accentColor,
+              color: AppColours.primaryColor,
               fontSize: 15,
               fontWeight: FontWeight.w400,
               fontFamily: 'DM Serif Display',
