@@ -4,7 +4,7 @@ import 'package:bookia/core/colors/appcolour.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
     super.key,
     required this.text,
     required this.onpressed,
@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
     this.sidecolor,
   });
   final String text;
-  Function() onpressed;
+  final Function onpressed;
   final Color bcolor;
   final Color tcolor;
   final Color? sidecolor;

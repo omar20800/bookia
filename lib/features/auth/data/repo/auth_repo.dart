@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bookia/core/service/dio_provider.dart';
 import 'package:bookia/features/auth/data/model/request/auth_request.dart';
-import 'package:bookia/features/auth/presentation/screens/forgot%20password/reset_password.dart';
 
 class AuthRepo {
   Future<Map<String, dynamic>?> register(AuthRequest params) async {

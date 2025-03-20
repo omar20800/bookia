@@ -18,7 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ForgotPassword extends StatelessWidget {
   ForgotPassword({super.key});
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
