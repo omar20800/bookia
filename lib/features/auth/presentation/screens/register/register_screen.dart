@@ -93,15 +93,21 @@ class RegisterScreen extends StatelessWidget {
                             text: 'Register',
                             onpressed: () {
                               if (_formKey.currentState!.validate()) {
-                                cubit.register(
-                                  AuthRequest(
-                                    name: nameController.text,
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    passwordConfirmation:
-                                        confirmPasswordController.text,
-                                  ),
-                                );
+                                if (passwordController.text !=
+                                    confirmPasswordController.text) {
+                                  showErrorToast(
+                                    context,
+                                    'Passwords do not match',
+                                  );
+                                } else {
+                                  cubit.register(
+                                    AuthRequest(
+                                      name: nameController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  );
+                                }
                               }
                             },
                             bcolor: AppColours.primaryColor,

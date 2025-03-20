@@ -39,8 +39,8 @@ String? otpValid(String? value) {
     return "This field is can't be empty";
   } else if (value.contains(RegExp(r'[a-zA-Z]'))) {
     return "OTP must contain only numbers";
-  } else if (value.length > 6) {
-    return "OTP must be at most 4 numbers";
+  } else if (value.length != 6) {
+    return "OTP must be 6 numbers";
   } else {
     return null;
   }

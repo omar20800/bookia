@@ -92,17 +92,20 @@ class ResetPassword extends StatelessWidget {
                             text: 'Reset Password',
                             onpressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                cubit.resetPassword(
-                                  AuthRequest(
-                                    newPassword: int.parse(
-                                      passwordController.text,
+                                if (passwordController.text !=
+                                    confirmPasswordController.text) {
+                                  showErrorToast(
+                                    context,
+                                    'Passwords do not match',
+                                  );
+                                } else {
+                                  cubit.resetPassword(
+                                    AuthRequest(
+                                      verifyCode: otp,
+                                      password: passwordController.text,
                                     ),
-                                    newPasswordConfirmation: int.parse(
-                                      confirmPasswordController.text,
-                                    ),
-                                    verifyCode: otp,
-                                  ),
-                                );
+                                  );
+                                }
                               }
                             },
                             bcolor: AppColours.primaryColor,
