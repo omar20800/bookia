@@ -1,3 +1,1 @@
-# bookia
-
-A new Flutter project.
+An e-commerce book store app
