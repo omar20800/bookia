@@ -28,114 +28,117 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
-      child: Scaffold(
-        body: BlocConsumer<AuthCubit, AuthStates>(
-          listener: (context, state) {
-            if (state is AuthError) {
-              Navigator.pop(context);
-              showErrorToast(context, state.message);
-            } else if (state is AuthSuccess) {
-              Navigator.pop(context);
-              showSuccessToast(context, 'Register Successful');
-            } else if (state is AuthLoading) {
-              showLoadingDialog(context);
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Form(
-              key: _formKey,
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 55,
-                        left: 24,
-                        right: 24,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackButtonTile(),
-                          SizedBox(height: 20),
-                          WelcomeText(text: 'Hello! Register to get started'),
-                          SizedBox(height: 30),
-                          InputField(
-                            controller: nameController,
-                            ispassword: false,
-                            keyboardType: TextInputType.name,
-                            hint: 'Username',
-                          ),
-                          SizedBox(height: 20),
-                          InputField(
-                            controller: emailController,
-                            ispassword: false,
-                            keyboardType: TextInputType.emailAddress,
-                            hint: 'Email',
-                          ),
-                          SizedBox(height: 20),
-                          InputField(
-                            controller: passwordController,
-                            ispassword: true,
-                            hint: 'Password',
-                          ),
-                          SizedBox(height: 20),
-                          InputField(
-                            controller: confirmPasswordController,
-                            ispassword: true,
-                            hint: 'Confirm Password',
-                          ),
-                          SizedBox(height: 20),
-                          CustomButton(
-                            text: 'Register',
-                            onpressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (passwordController.text !=
-                                    confirmPasswordController.text) {
-                                  showErrorToast(
-                                    context,
-                                    'Passwords do not match',
-                                  );
-                                } else {
-                                  cubit.register(
-                                    AuthRequest(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                    ),
-                                  );
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: BlocConsumer<AuthCubit, AuthStates>(
+            listener: (context, state) {
+              if (state is AuthError) {
+                Navigator.pop(context);
+                showErrorToast(context, state.message);
+              } else if (state is AuthSuccess) {
+                Navigator.pop(context);
+                showSuccessToast(context, 'Register Successful');
+              } else if (state is AuthLoading) {
+                showLoadingDialog(context);
+              }
+            },
+            builder: (context, state) {
+              var cubit = context.read<AuthCubit>();
+              return Form(
+                key: _formKey,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 55,
+                          left: 24,
+                          right: 24,
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BackButtonTile(),
+                            SizedBox(height: 20),
+                            WelcomeText(text: 'Hello! Register to get started'),
+                            SizedBox(height: 30),
+                            InputField(
+                              controller: nameController,
+                              ispassword: false,
+                              keyboardType: TextInputType.name,
+                              hint: 'Username',
+                            ),
+                            SizedBox(height: 20),
+                            InputField(
+                              controller: emailController,
+                              ispassword: false,
+                              keyboardType: TextInputType.emailAddress,
+                              hint: 'Email',
+                            ),
+                            SizedBox(height: 20),
+                            InputField(
+                              controller: passwordController,
+                              ispassword: true,
+                              hint: 'Password',
+                            ),
+                            SizedBox(height: 20),
+                            InputField(
+                              controller: confirmPasswordController,
+                              ispassword: true,
+                              hint: 'Confirm Password',
+                            ),
+                            SizedBox(height: 20),
+                            CustomButton(
+                              text: 'Register',
+                              onpressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (passwordController.text !=
+                                      confirmPasswordController.text) {
+                                    showErrorToast(
+                                      context,
+                                      'Passwords do not match',
+                                    );
+                                  } else {
+                                    cubit.register(
+                                      AuthRequest(
+                                        name: nameController.text,
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                      ),
+                                    );
+                                  }
                                 }
-                              }
-                            },
-                            bcolor: AppColours.primaryColor,
-                            tcolor: AppColours.backgroundColor,
-                          ),
-                          SizedBox(height: 20),
-                          LoginWith(text: 'Or Register with'),
-                          Expanded(child: SizedBox()),
-                          RegisterLogin(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            text: 'Already have an account?',
-                            textButton: 'Login Now',
-                          ),
-                        ],
+                              },
+                              bcolor: AppColours.primaryColor,
+                              tcolor: AppColours.backgroundColor,
+                            ),
+                            SizedBox(height: 20),
+                            LoginWith(text: 'Or Register with'),
+                            Expanded(child: SizedBox()),
+                            RegisterLogin(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                );
+                              },
+                              text: 'Already have an account?',
+                              textButton: 'Login Now',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

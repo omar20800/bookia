@@ -24,97 +24,101 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
-      child: Scaffold(
-        body: BlocConsumer<AuthCubit, AuthStates>(
-          listener: (context, state) {
-            if (state is AuthError) {
-              Navigator.pop(context);
-              showErrorToast(context, state.message);
-            } else if (state is AuthLoading) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccess) {
-              Navigator.pop(context);
-              showSuccessToast(context, 'Code Sent Successfully');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => OtpVerification(email: emailController.text),
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Form(
-              key: _formKey,
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 55,
-                        left: 24,
-                        right: 24,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackButtonTile(),
-                          SizedBox(height: 20),
-                          WelcomeText(text: 'Forgot Password?'),
-                          Text(
-                            'Don\'t worry! It occurs. Please enter the email address linked with your account.',
-                            style: TextStyle(
-                              fontFamily: 'DM Serif Display',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColours.grayColor,
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: BlocConsumer<AuthCubit, AuthStates>(
+            listener: (context, state) {
+              if (state is AuthError) {
+                Navigator.pop(context);
+                showErrorToast(context, state.message);
+              } else if (state is AuthLoading) {
+                showLoadingDialog(context);
+              } else if (state is AuthSuccess) {
+                Navigator.pop(context);
+                showSuccessToast(context, 'Code Sent Successfully');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) =>
+                            OtpVerification(email: emailController.text),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              var cubit = context.read<AuthCubit>();
+              return Form(
+                key: _formKey,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 55,
+                          left: 24,
+                          right: 24,
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BackButtonTile(),
+                            SizedBox(height: 20),
+                            WelcomeText(text: 'Forgot Password?'),
+                            Text(
+                              'Don\'t worry! It occurs. Please enter the email address linked with your account.',
+                              style: TextStyle(
+                                fontFamily: 'DM Serif Display',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColours.grayColor,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 30),
-                          InputField(
-                            controller: emailController,
-                            ispassword: false,
-                            keyboardType: TextInputType.emailAddress,
-                            hint: 'Enter your email',
-                          ),
-                          SizedBox(height: 30),
-                          CustomButton(
-                            text: 'Send Code',
-                            onpressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                cubit.forgotPassword(
-                                  AuthRequest(email: emailController.text),
+                            SizedBox(height: 30),
+                            InputField(
+                              controller: emailController,
+                              ispassword: false,
+                              keyboardType: TextInputType.emailAddress,
+                              hint: 'Enter your email',
+                            ),
+                            SizedBox(height: 30),
+                            CustomButton(
+                              text: 'Send Code',
+                              onpressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  cubit.forgotPassword(
+                                    AuthRequest(email: emailController.text),
+                                  );
+                                }
+                              },
+                              bcolor: AppColours.primaryColor,
+                              tcolor: AppColours.backgroundColor,
+                            ),
+                            Expanded(child: SizedBox()),
+                            RegisterLogin(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
                                 );
-                              }
-                            },
-                            bcolor: AppColours.primaryColor,
-                            tcolor: AppColours.backgroundColor,
-                          ),
-                          Expanded(child: SizedBox()),
-                          RegisterLogin(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            text: 'Remember Password?',
-                            textButton: 'Login',
-                          ),
-                        ],
+                              },
+                              text: 'Remember Password?',
+                              textButton: 'Login',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

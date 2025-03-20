@@ -27,117 +27,120 @@ class LoginScreen extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: Form(
         key: _formKey,
-        child: Scaffold(
-          body: BlocConsumer<AuthCubit, AuthStates>(
-            listener: (context, state) {
-              if (state is AuthError) {
-                Navigator.pop(context);
-                showErrorToast(context, state.message);
-              } else if (state is AuthSuccess) {
-                Navigator.pop(context);
-                showSuccessToast(context, 'Login Successful');
-              } else if (state is AuthLoading) {
-                showLoadingDialog(context);
-              }
-            },
-            builder: (context, state) {
-              var cubit = context.read<AuthCubit>();
-              return CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 55,
-                        left: 24,
-                        right: 24,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackButtonTile(),
-                          SizedBox(height: 20),
-                          WelcomeText(
-                            text: 'Welcome back! Glad to see you, Again!',
-                          ),
-                          SizedBox(height: 30),
-                          InputField(
-                            controller: emailController,
-                            ispassword: false,
-                            keyboardType: TextInputType.emailAddress,
-                            hint: 'Enter your email',
-                          ),
-                          SizedBox(height: 20),
-                          InputField(
-                            controller: passwordController,
-                            ispassword: true,
-                            keyboardType: TextInputType.visiblePassword,
-                            hint: 'Enter your password',
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ForgotPassword(),
+        child: SafeArea(
+          top: false,
+          child: Scaffold(
+            body: BlocConsumer<AuthCubit, AuthStates>(
+              listener: (context, state) {
+                if (state is AuthError) {
+                  Navigator.pop(context);
+                  showErrorToast(context, state.message);
+                } else if (state is AuthSuccess) {
+                  Navigator.pop(context);
+                  showSuccessToast(context, 'Login Successful');
+                } else if (state is AuthLoading) {
+                  showLoadingDialog(context);
+                }
+              },
+              builder: (context, state) {
+                var cubit = context.read<AuthCubit>();
+                return CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 55,
+                          left: 24,
+                          right: 24,
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BackButtonTile(),
+                            SizedBox(height: 20),
+                            WelcomeText(
+                              text: 'Welcome back! Glad to see you, Again!',
+                            ),
+                            SizedBox(height: 30),
+                            InputField(
+                              controller: emailController,
+                              ispassword: false,
+                              keyboardType: TextInputType.emailAddress,
+                              hint: 'Enter your email',
+                            ),
+                            SizedBox(height: 20),
+                            InputField(
+                              controller: passwordController,
+                              ispassword: true,
+                              keyboardType: TextInputType.visiblePassword,
+                              hint: 'Enter your password',
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ForgotPassword(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Forgot Password?',
+                                    style: TextStyle(
+                                      fontFamily: 'DM Serif Display',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColours.grayColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            CustomButton(
+                              text: 'Login',
+                              onpressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  cubit.login(
+                                    AuthRequest(
+                                      email: emailController.text,
+                                      password: passwordController.text,
                                     ),
                                   );
-                                },
-                                child: const Text(
-                                  'Forgot Password?',
-                                  style: TextStyle(
-                                    fontFamily: 'DM Serif Display',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.grayColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          CustomButton(
-                            text: 'Login',
-                            onpressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                cubit.login(
-                                  AuthRequest(
-                                    email: emailController.text,
-                                    password: passwordController.text,
+                                }
+                              },
+                              bcolor: AppColours.primaryColor,
+                              tcolor: AppColours.backgroundColor,
+                            ),
+                            SizedBox(height: 20),
+                            LoginWith(text: 'Or Login with'),
+                            Expanded(child: SizedBox()),
+                            RegisterLogin(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterScreen(),
                                   ),
                                 );
-                              }
-                            },
-                            bcolor: AppColours.primaryColor,
-                            tcolor: AppColours.backgroundColor,
-                          ),
-                          SizedBox(height: 20),
-                          LoginWith(text: 'Or Login with'),
-                          Expanded(child: SizedBox()),
-                          RegisterLogin(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
-                                ),
-                              );
-                            },
-                            text: 'Don\'t have an account?',
-                            textButton: 'Register Now',
-                          ),
-                        ],
+                              },
+                              text: 'Don\'t have an account?',
+                              textButton: 'Register Now',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

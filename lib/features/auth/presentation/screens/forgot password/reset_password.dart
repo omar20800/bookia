@@ -24,101 +24,104 @@ class ResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
-      child: Scaffold(
-        body: BlocConsumer<AuthCubit, AuthStates>(
-          listener: (context, state) {
-            if (state is AuthError) {
-              Navigator.pop(context);
-              showErrorToast(context, state.message);
-            } else if (state is AuthLoading) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccess) {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PasswordChanged()),
-              );
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Form(
-              key: _formKey,
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 55,
-                        left: 24,
-                        right: 24,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackButtonTile(),
-                          SizedBox(height: 20),
-                          WelcomeText(
-                            width: double.infinity,
-                            text: 'Create new password',
-                          ),
-                          Text(
-                            'Your new password must be unique from those previously used.',
-                            style: TextStyle(
-                              fontFamily: 'DM Serif Display',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColours.grayColor,
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: BlocConsumer<AuthCubit, AuthStates>(
+            listener: (context, state) {
+              if (state is AuthError) {
+                Navigator.pop(context);
+                showErrorToast(context, state.message);
+              } else if (state is AuthLoading) {
+                showLoadingDialog(context);
+              } else if (state is AuthSuccess) {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PasswordChanged()),
+                );
+              }
+            },
+            builder: (context, state) {
+              var cubit = context.read<AuthCubit>();
+              return Form(
+                key: _formKey,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 55,
+                          left: 24,
+                          right: 24,
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BackButtonTile(),
+                            SizedBox(height: 20),
+                            WelcomeText(
+                              width: double.infinity,
+                              text: 'Create new password',
                             ),
-                          ),
-                          SizedBox(height: 30),
-                          InputField(
-                            controller: passwordController,
-                            ispassword: true,
-                            keyboardType: TextInputType.visiblePassword,
-                            hint: 'New Password',
-                          ),
-                          SizedBox(height: 20),
-                          InputField(
-                            controller: confirmPasswordController,
-                            ispassword: true,
-                            keyboardType: TextInputType.visiblePassword,
-                            hint: 'Confirm Password',
-                          ),
-                          SizedBox(height: 30),
-                          CustomButton(
-                            text: 'Reset Password',
-                            onpressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                if (passwordController.text !=
-                                    confirmPasswordController.text) {
-                                  showErrorToast(
-                                    context,
-                                    'Passwords do not match',
-                                  );
-                                } else {
-                                  cubit.resetPassword(
-                                    AuthRequest(
-                                      verifyCode: otp,
-                                      password: passwordController.text,
-                                    ),
-                                  );
+                            Text(
+                              'Your new password must be unique from those previously used.',
+                              style: TextStyle(
+                                fontFamily: 'DM Serif Display',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColours.grayColor,
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            InputField(
+                              controller: passwordController,
+                              ispassword: true,
+                              keyboardType: TextInputType.visiblePassword,
+                              hint: 'New Password',
+                            ),
+                            SizedBox(height: 20),
+                            InputField(
+                              controller: confirmPasswordController,
+                              ispassword: true,
+                              keyboardType: TextInputType.visiblePassword,
+                              hint: 'Confirm Password',
+                            ),
+                            SizedBox(height: 30),
+                            CustomButton(
+                              text: 'Reset Password',
+                              onpressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  if (passwordController.text !=
+                                      confirmPasswordController.text) {
+                                    showErrorToast(
+                                      context,
+                                      'Passwords do not match',
+                                    );
+                                  } else {
+                                    cubit.resetPassword(
+                                      AuthRequest(
+                                        verifyCode: otp,
+                                        password: passwordController.text,
+                                      ),
+                                    );
+                                  }
                                 }
-                              }
-                            },
-                            bcolor: AppColours.primaryColor,
-                            tcolor: AppColours.backgroundColor,
-                          ),
-                        ],
+                              },
+                              bcolor: AppColours.primaryColor,
+                              tcolor: AppColours.backgroundColor,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

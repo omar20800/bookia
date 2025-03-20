@@ -25,152 +25,155 @@ class OtpVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
-      child: Scaffold(
-        body: BlocConsumer<AuthCubit, AuthStates>(
-          listener: (context, state) {
-            if (state is AuthError) {
-              Navigator.pop(context);
-              showErrorToast(context, state.message);
-            } else if (state is AuthLoading) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccess) {
-              Navigator.pop(context);
-              showSuccessToast(context, 'Valid Code');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) =>
-                          ResetPassword(otp: int.parse(otpController.text)),
-                ),
-              );
-            } else if (state is AuthCodeResent) {
-              Navigator.pop(context);
-              showSuccessToast(context, 'Code Resent Successfully');
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Form(
-              key: _formKey,
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 55,
-                        left: 24,
-                        right: 24,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackButtonTile(),
-                          SizedBox(height: 20),
-                          WelcomeText(text: 'OTP Verification'),
-                          Text(
-                            'Enter the verification code we just sent on your email address.',
-                            style: TextStyle(
-                              fontFamily: 'DM Serif Display',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColours.grayColor,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Pinput(
-                            controller: otpController,
-                            errorPinTheme: PinTheme(
-                              width: 70,
-                              height: 60,
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.w700,
-                                color: AppColours.darkColor,
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: BlocConsumer<AuthCubit, AuthStates>(
+            listener: (context, state) {
+              if (state is AuthError) {
+                Navigator.pop(context);
+                showErrorToast(context, state.message);
+              } else if (state is AuthLoading) {
+                showLoadingDialog(context);
+              } else if (state is AuthSuccess) {
+                Navigator.pop(context);
+                showSuccessToast(context, 'Valid Code');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) =>
+                            ResetPassword(otp: int.parse(otpController.text)),
+                  ),
+                );
+              } else if (state is AuthCodeResent) {
+                Navigator.pop(context);
+                showSuccessToast(context, 'Code Resent Successfully');
+              }
+            },
+            builder: (context, state) {
+              var cubit = context.read<AuthCubit>();
+              return Form(
+                key: _formKey,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 55,
+                          left: 24,
+                          right: 24,
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BackButtonTile(),
+                            SizedBox(height: 20),
+                            WelcomeText(text: 'OTP Verification'),
+                            Text(
+                              'Enter the verification code we just sent on your email address.',
+                              style: TextStyle(
+                                fontFamily: 'DM Serif Display',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColours.grayColor,
                               ),
-                              decoration: BoxDecoration(
-                                color: AppColours.lightGrayColor,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: AppColours.redColor,
-                                  width: 1.2,
+                            ),
+                            SizedBox(height: 30),
+                            Pinput(
+                              controller: otpController,
+                              errorPinTheme: PinTheme(
+                                width: 70,
+                                height: 60,
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Urbanist',
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColours.darkColor,
                                 ),
-                              ),
-                            ),
-                            focusedPinTheme: PinTheme(
-                              width: 70,
-                              height: 60,
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.w700,
-                                color: AppColours.darkColor,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColours.lightGrayColor,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: AppColours.primaryColor,
-                                  width: 1.2,
-                                ),
-                              ),
-                            ),
-                            validator: (value) => otpValid(value),
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            length: 6,
-                            defaultPinTheme: PinTheme(
-                              width: 70,
-                              height: 60,
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.w700,
-                                color: AppColours.darkColor,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColours.lightGrayColor,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: AppColours.borderColor,
-                                  width: 1.2,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          CustomButton(
-                            text: 'Verify',
-                            onpressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                cubit.verifyCode(
-                                  AuthRequest(
-                                    verifyCode: int.parse(otpController.text),
+                                decoration: BoxDecoration(
+                                  color: AppColours.lightGrayColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: AppColours.redColor,
+                                    width: 1.2,
                                   ),
-                                );
-                              }
-                            },
-                            bcolor: AppColours.primaryColor,
-                            tcolor: AppColours.backgroundColor,
-                          ),
-                          Expanded(child: SizedBox()),
-                          RegisterLogin(
-                            onPressed: () {
-                              cubit.resendCode(AuthRequest(email: email));
-                            },
-                            text: 'Didn\'t received code? ',
-                            textButton: 'Resend',
-                          ),
-                        ],
+                                ),
+                              ),
+                              focusedPinTheme: PinTheme(
+                                width: 70,
+                                height: 60,
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Urbanist',
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColours.darkColor,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColours.lightGrayColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: AppColours.primaryColor,
+                                    width: 1.2,
+                                  ),
+                                ),
+                              ),
+                              validator: (value) => otpValid(value),
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              length: 6,
+                              defaultPinTheme: PinTheme(
+                                width: 70,
+                                height: 60,
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Urbanist',
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColours.darkColor,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColours.lightGrayColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: AppColours.borderColor,
+                                    width: 1.2,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            CustomButton(
+                              text: 'Verify',
+                              onpressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  cubit.verifyCode(
+                                    AuthRequest(
+                                      verifyCode: int.parse(otpController.text),
+                                    ),
+                                  );
+                                }
+                              },
+                              bcolor: AppColours.primaryColor,
+                              tcolor: AppColours.backgroundColor,
+                            ),
+                            Expanded(child: SizedBox()),
+                            RegisterLogin(
+                              onPressed: () {
+                                cubit.resendCode(AuthRequest(email: email));
+                              },
+                              text: 'Didn\'t received code? ',
+                              textButton: 'Resend',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -14,6 +14,7 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
+        top: false,
         child: Container(
           padding: const EdgeInsets.all(22),
           width: double.infinity,
