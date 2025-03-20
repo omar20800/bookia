@@ -41,6 +41,7 @@ class LoginScreen extends StatelessWidget {
               }
             },
             builder: (context, state) {
+              var cubit = context.read<AuthCubit>();
               return CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -104,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                             text: 'Login',
                             onpressed: () {
                               if (_formKey.currentState!.validate()) {
-                                BlocProvider.of<AuthCubit>(context).login(
+                                cubit.login(
                                   AuthRequest(
                                     email: emailController.text,
                                     password: passwordController.text,

@@ -42,6 +42,7 @@ class RegisterScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
+            var cubit = context.read<AuthCubit>();
             return Form(
               key: _formKey,
               child: CustomScrollView(
@@ -92,7 +93,7 @@ class RegisterScreen extends StatelessWidget {
                             text: 'Register',
                             onpressed: () {
                               if (_formKey.currentState!.validate()) {
-                                BlocProvider.of<AuthCubit>(context).register(
+                                cubit.register(
                                   AuthRequest(
                                     name: nameController.text,
                                     email: emailController.text,
