@@ -1,6 +1,8 @@
 String? passwordValid(String? value) {
   if (value == null || value.isEmpty) {
     return "This field is can't be empty";
+  } else if (value.contains(RegExp(r'[a-zA-Z]'))) {
+    return "Password must contain only numbers";
   } else if (value.length < 8) {
     return "Password must be at least 8 characters";
   } else {

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:bookia/core/colors/appcolour.dart';
-import 'package:bookia/core/validation/validation.dart';
+import 'package:bookia/core/functions/validation.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
@@ -43,7 +43,8 @@ class _InputFieldState extends State<InputField> {
         }
       },
       obscureText: widget.ispassword ? showPassword : false,
-      keyboardType: widget.keyboardType,
+      keyboardType:
+          widget.ispassword ? TextInputType.number : widget.keyboardType,
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
