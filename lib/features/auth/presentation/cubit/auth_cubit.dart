@@ -1,3 +1,4 @@
+import 'package:bookia/core/service/local_helper.dart';
 import 'package:bookia/features/auth/data/model/request/auth_request.dart';
 import 'package:bookia/features/auth/data/repo/auth_repo.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_states.dart';
@@ -10,6 +11,7 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(AuthLoading());
     AuthRepo().login(params).then((value) {
       if (value != null) {
+        AppLocalStorage.cacheData('token', value['token']);
         emit(AuthSuccess());
       } else {
         emit(AuthError(message: 'Login failed'));
@@ -21,6 +23,7 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(AuthLoading());
     AuthRepo().register(params).then((value) {
       if (value != null) {
+        AppLocalStorage.cacheData('token', value['token']);
         emit(AuthSuccess());
       } else {
         emit(AuthError(message: 'registration failed'));
