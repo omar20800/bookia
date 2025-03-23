@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home:
-          AppLocalStorage.getCachedUser('user') != null
+          AppLocalStorage.getCachedUser('user')?.token != null
               ? MainScreen()
               : WelcomeScreen(),
     );
