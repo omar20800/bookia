@@ -1,9 +1,12 @@
 import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
+import 'package:bookia/features/home/data/model/request/home_request.dart';
 import 'package:bookia/features/home/data/model/response/best_seller_response/product.dart';
+import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBookTile extends StatelessWidget {
   const HomeBookTile({super.key, required this.product});
@@ -33,11 +36,14 @@ class HomeBookTile extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5),
-          Text(
-            product.name ?? '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: getBodyTextStyle(),
+          Hero(
+            tag: product.name.toString(),
+            child: Text(
+              product.name ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: getBodyTextStyle(),
+            ),
           ),
           SizedBox(height: 5),
           Row(
@@ -52,7 +58,11 @@ class HomeBookTile extends StatelessWidget {
                 width: 80,
                 height: 30,
                 text: 'Buy',
-                onpressed: () {},
+                onpressed: () {
+                  context.read<HomeCubit>().addtoCart(
+                    HomeRequest(id: product.id),
+                  );
+                },
                 bcolor: AppColours.darkColor,
                 tcolor: AppColours.backgroundColor,
               ),

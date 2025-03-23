@@ -26,6 +26,5 @@ TextStyle getBodyTextStyle({
     fontSize: fontSize ?? 18,
     fontWeight: fontWeight ?? FontWeight.w400,
     color: color ?? AppColours.darkColor,
-    
   );
 }

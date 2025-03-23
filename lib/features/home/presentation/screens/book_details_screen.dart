@@ -34,6 +34,7 @@ class BookDetails extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              forceMaterialTransparency: true,
               title: Text('Book Details', style: getHeaderTextStyle()),
               centerTitle: true,
               leading: IconButton(
@@ -83,10 +84,13 @@ class BookDetails extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 20),
-                            Text(
-                              product.name ?? '',
-                              textAlign: TextAlign.center,
-                              style: getHeaderTextStyle(fontSize: 30),
+                            Hero(
+                              tag: product.name.toString(),
+                              child: Text(
+                                product.name ?? '',
+                                textAlign: TextAlign.center,
+                                style: getHeaderTextStyle(fontSize: 30),
+                              ),
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -107,27 +111,30 @@ class BookDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${product.priceAfterDiscount} \$',
-                          style: getHeaderTextStyle(),
-                        ),
-                        Spacer(),
-                        CustomButton(
-                          fontsize: 20,
-                          width: 212,
-                          height: 56,
-                          text: 'Add To Cart',
-                          onpressed: () {
-                            context.read<HomeCubit>().addtoCart(
-                              HomeRequest(id: product.id),
-                            );
-                          },
-                          bcolor: AppColours.darkColor,
-                          tcolor: AppColours.backgroundColor,
-                        ),
-                      ],
+                    SizedBox(
+                      height: 80,
+                      child: Row(
+                        children: [
+                          Text(
+                            '${product.priceAfterDiscount} \$',
+                            style: getHeaderTextStyle(),
+                          ),
+                          Spacer(),
+                          CustomButton(
+                            fontsize: 20,
+                            width: 212,
+                            height: 56,
+                            text: 'Add To Cart',
+                            onpressed: () {
+                              context.read<HomeCubit>().addtoCart(
+                                HomeRequest(id: product.id),
+                              );
+                            },
+                            bcolor: AppColours.darkColor,
+                            tcolor: AppColours.backgroundColor,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

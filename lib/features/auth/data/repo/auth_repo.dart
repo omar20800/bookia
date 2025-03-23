@@ -4,14 +4,14 @@ import 'package:bookia/features/auth/data/model/request/auth_request.dart';
 import 'package:bookia/features/auth/data/model/response/auth_response/auth_response.dart';
 
 class AuthRepo {
-  Future<AuthResponse?> register(AuthRequest params) async {
+  Future<AuthResponse?> login(AuthRequest params) async {
     try {
       var response = await DioProvider.post(
-        endpoint: 'register',
+        endpoint: 'login',
         data: params.toJson(),
       );
-      if (response.statusCode == 201) {
-        return response.data;
+      if (response.statusCode == 200) {
+        return AuthResponse.fromJson(response.data);
       } else {
         return null;
       }
@@ -21,14 +21,14 @@ class AuthRepo {
     }
   }
 
-  Future<AuthResponse?> login(AuthRequest params) async {
+  Future<AuthResponse?> register(AuthRequest params) async {
     try {
       var response = await DioProvider.post(
-        endpoint: 'login',
+        endpoint: 'register',
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
-        return response.data;
+      if (response.statusCode == 201) {
+        return AuthResponse.fromJson(response.data);
       } else {
         return null;
       }

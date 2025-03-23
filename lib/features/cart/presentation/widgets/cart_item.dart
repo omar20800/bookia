@@ -1,10 +1,14 @@
 import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
+import 'package:bookia/features/cart/data/model/response/cart_response/cart_item.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+class CartItemWidget extends StatelessWidget {
+  const CartItemWidget({super.key, required this.item, required this.onRemove});
+  final CartItem item;
+  final Function() onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +21,8 @@ class CartItem extends StatelessWidget {
           height: 110,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              'assets/images/book-cover.png',
+            child: CachedNetworkImage(
+              imageUrl: item.itemProductImage ?? '',
               fit: BoxFit.cover,
             ),
           ),
@@ -31,15 +35,23 @@ class CartItem extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text('The Republic', style: getBodyTextStyle()),
+                    child: Text(
+                      item.itemProductName ?? '',
+                      style: getBodyTextStyle(),
+                    ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      onRemove();
+                    },
                     icon: SvgPicture.asset('assets/icons/remove.svg'),
                   ),
                 ],
               ),
-              Text('₹285', style: getBodyTextStyle()),
+              Text(
+                '${item.itemProductPriceAfterDiscount} \$',
+                style: getBodyTextStyle(),
+              ),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +72,10 @@ class CartItem extends StatelessWidget {
                   SizedBox(width: 2.5),
                   SizedBox(
                     width: 25,
-                    child: Text('02', style: getBodyTextStyle()),
+                    child: Text(
+                      item.itemQuantity.toString(),
+                      style: getBodyTextStyle(),
+                    ),
                   ),
                   SizedBox(width: 2.5),
                   InkWell(

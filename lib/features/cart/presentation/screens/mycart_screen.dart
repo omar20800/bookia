@@ -1,22 +1,72 @@
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
-import 'package:bookia/core/widgets/item_seprator.dart';
+import 'package:bookia/core/widgets/dialogs.dart';
+import 'package:bookia/features/cart/data/model/request/cart_request.dart';
+import 'package:bookia/features/cart/data/model/response/cart_response/cart_item.dart';
+import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bookia/features/cart/presentation/cubit/cart_states.dart';
 import 'package:bookia/features/cart/presentation/widgets/cart_list.dart';
-import 'package:bookia/features/cart/presentation/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MycartScreen extends StatelessWidget {
   const MycartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Cart', style: getHeaderTextStyle()),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-        child: Column(children: [CartList()]),
+    return BlocProvider(
+      create: (context) => CartCubit()..getCart(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('My Cart', style: getHeaderTextStyle()),
+          centerTitle: true,
+        ),
+        body: BlocBuilder<CartCubit, CartStates>(
+          buildWhen:
+              (_, state) =>
+                  state is CartLoading ||
+                  state is CartError ||
+                  state is CartSuccess || state is CartRemoveSuccess,
+          builder: (context, state) {
+            if (state is CartLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColours.primaryColor,
+                ),
+              );
+            } else if (state is CartError) {
+              return showErrorToast(context, 'Something went wrong');
+            }
+            List<CartItem> cartItems =
+                context.read<CartCubit>().cart?.data?.cartItems ?? [];
+            if (cartItems.isEmpty) {
+              return Center(
+                child: Image.asset(
+                  'assets/images/empty.png',
+                  color: AppColours.primaryColor,
+                ),
+              );
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 8.0,
+              ),
+              child: Column(
+                children: [
+                  CartList(
+                    cartItems: cartItems,
+                    onRemove: (index) {
+                      context.read<CartCubit>().removeCart(
+                        CartRequest(itemId: cartItems[index].itemId),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

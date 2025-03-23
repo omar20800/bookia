@@ -1,14 +1,27 @@
 import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
+import 'package:bookia/features/wishlist/data/model/request/wishlist_request.dart';
+import 'package:bookia/features/wishlist/data/model/response/wish_list_response/datum.dart';
+import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bookia/core/functions/discount.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WishListItem extends StatelessWidget {
-  const WishListItem({super.key});
+  const WishListItem({super.key, required this.item, required this.onRemove, required this.onAddToCart});
+  final Datum item;
+  final Function() onRemove;
+  final Function() onAddToCart;
 
   @override
   Widget build(BuildContext context) {
+    int price = discountCalculate(
+      discount: item.discount ?? 0,
+      price: double.parse(item.price ?? '1'),
+    );
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -18,8 +31,8 @@ class WishListItem extends StatelessWidget {
           height: 110,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              'assets/images/book-cover.png',
+            child: CachedNetworkImage(
+              imageUrl: item.image ?? '',
               fit: BoxFit.cover,
             ),
           ),
@@ -32,15 +45,22 @@ class WishListItem extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text('The Republic', style: getBodyTextStyle()),
+                    child: Text(
+                      item.name ?? '',
+                      style: getBodyTextStyle(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      onRemove();
+                    },
                     icon: SvgPicture.asset('assets/icons/remove.svg'),
                   ),
                 ],
               ),
-              Text('₹285', style: getBodyTextStyle()),
+              Text('$price \$', style: getBodyTextStyle()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -48,7 +68,9 @@ class WishListItem extends StatelessWidget {
                     width: 150,
                     height: 40,
                     text: 'Add to Cart',
-                    onpressed: () {},
+                    onpressed: () {
+                      onAddToCart();
+                    },
                     bcolor: AppColours.primaryColor,
                     tcolor: AppColours.backgroundColor,
                   ),
