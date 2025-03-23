@@ -1,4 +1,4 @@
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -34,6 +34,18 @@ showLoadingDialog(BuildContext context) {
         (context) => Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Lottie.asset("assets/images/loading.json", width: 200)],
+        ),
+  );
+}
+
+showNormalLoading(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder:
+        (context) => Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [CircularProgressIndicator(color: AppColours.primaryColor)],
         ),
   );
 }

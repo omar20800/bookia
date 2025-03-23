@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/features/auth/presentation/widgets/social_button.dart';
 import 'package:flutter/material.dart';
 

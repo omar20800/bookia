@@ -1,33 +1,20 @@
-import 'package:shared_preferences/shared_preferences.dart';
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
+import 'package:bookia/core/model/user_model.dart';
+import 'package:hive/hive.dart';
 
 class AppLocalStorage {
-  static late SharedPreferences? pref;
+  static Box<UserModel>? userBox;
 
-  static String tokenKey = "token";
-
-  static init() async {
-    pref = await SharedPreferences.getInstance();
+  static init() {
+    userBox = Hive.box<UserModel>("userBox");
   }
 
-  static cacheData(String key, dynamic value) async {
-    if (value is String) {
-      await pref?.setString(key, value);
-    } else if (value is bool) {
-      await pref?.setBool(key, value);
-    } else if (value is int) {
-      await pref?.setInt(key, value);
-    } else if (value is double) {
-      await pref?.setDouble(key, value);
-    } else {
-      await pref?.setStringList(key, value);
-    }
+  static cacheUser(String key, UserModel value) async {
+    await userBox?.put(key, value);
   }
 
-  static getCacheData(String key) {
-    return pref?.get(key);
-  }
-
-  static removeData(String key) {
-    pref?.remove(key);
+  static UserModel? getCachedUser(String key) {
+    return userBox?.get(key);
   }
 }

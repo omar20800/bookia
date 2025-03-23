@@ -1,10 +1,10 @@
 import 'dart:developer';
-
 import 'package:bookia/core/service/dio_provider.dart';
 import 'package:bookia/features/auth/data/model/request/auth_request.dart';
+import 'package:bookia/features/auth/data/model/response/auth_response/auth_response.dart';
 
 class AuthRepo {
-  Future<Map<String, dynamic>?> register(AuthRequest params) async {
+  Future<AuthResponse?> register(AuthRequest params) async {
     try {
       var response = await DioProvider.post(
         endpoint: 'register',
@@ -21,7 +21,7 @@ class AuthRepo {
     }
   }
 
-  Future<Map<String, dynamic>?> login(AuthRequest params) async {
+  Future<AuthResponse?> login(AuthRequest params) async {
     try {
       var response = await DioProvider.post(
         endpoint: 'login',

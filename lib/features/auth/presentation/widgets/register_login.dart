@@ -1,4 +1,4 @@
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:flutter/material.dart';
 
 class RegisterLogin extends StatelessWidget {

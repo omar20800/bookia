@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
 import 'package:bookia/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';

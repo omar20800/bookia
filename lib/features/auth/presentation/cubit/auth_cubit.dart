@@ -1,3 +1,4 @@
+import 'package:bookia/core/model/user_model.dart';
 import 'package:bookia/core/service/local_helper.dart';
 import 'package:bookia/features/auth/data/model/request/auth_request.dart';
 import 'package:bookia/features/auth/data/repo/auth_repo.dart';
@@ -11,10 +12,23 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(AuthLoading());
     AuthRepo().login(params).then((value) {
       if (value != null) {
-        AppLocalStorage.cacheData('token', value['token']);
+        AppLocalStorage.cacheUser(
+          'user',
+          UserModel(
+            id: value.data?.user?.id ?? 0,
+            name: value.data?.user?.name ?? '',
+            email: value.data?.user?.email ?? '',
+            address: value.data?.user?.address ?? '',
+            city: value.data?.user?.city ?? '',
+            phone: value.data?.user?.phone ?? '',
+            emailVerified: value.data?.user?.emailVerified ?? false,
+            image: value.data?.user?.image ?? '',
+            token: value.data?.token ?? '',
+          ),
+        );
         emit(AuthSuccess());
       } else {
-        emit(AuthError(message: 'Login failed'));
+        emit(AuthError(message: 'login failed'));
       }
     });
   }
@@ -23,7 +37,20 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(AuthLoading());
     AuthRepo().register(params).then((value) {
       if (value != null) {
-        AppLocalStorage.cacheData('token', value['token']);
+        AppLocalStorage.cacheUser(
+          'user',
+          UserModel(
+            id: value.data?.user?.id ?? 0,
+            name: value.data?.user?.name ?? '',
+            email: value.data?.user?.email ?? '',
+            address: value.data?.user?.address ?? '',
+            city: value.data?.user?.city ?? '',
+            phone: value.data?.user?.phone ?? '',
+            emailVerified: value.data?.user?.emailVerified ?? false,
+            image: value.data?.user?.image ?? '',
+            token: value.data?.token ?? '',
+          ),
+        );
         emit(AuthSuccess());
       } else {
         emit(AuthError(message: 'registration failed'));

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -11,17 +11,23 @@ class CustomButton extends StatelessWidget {
     required this.bcolor,
     required this.tcolor,
     this.sidecolor,
+    this.height,
+    this.width,
+    this.fontsize,
   });
   final String text;
   final Function onpressed;
   final Color bcolor;
   final Color tcolor;
   final Color? sidecolor;
+  final double? height;
+  final double? width;
+  final double? fontsize;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56,
-      width: double.infinity,
+      height: height ?? 56,
+      width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -40,7 +46,7 @@ class CustomButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: fontsize ?? 15,
             fontWeight: FontWeight.w400,
             color: tcolor,
             fontFamily: 'DM Serif Display',

@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
 import 'package:bookia/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/register/register_screen.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:bookia/core/colors/appcolour.dart';
+import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/widgets/back_button.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
 import 'package:bookia/core/widgets/dialogs.dart';
@@ -13,6 +13,7 @@ import 'package:bookia/features/auth/presentation/widgets/login_with.dart';
 import 'package:bookia/features/auth/presentation/widgets/register_login.dart';
 import 'package:bookia/features/auth/presentation/screens/register/register_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/welcome_text.dart';
+import 'package:bookia/features/main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,6 +39,11 @@ class LoginScreen extends StatelessWidget {
                 } else if (state is AuthSuccess) {
                   Navigator.pop(context);
                   showSuccessToast(context, 'Login Successful');
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainScreen()),
+                    (route) => false,
+                  );
                 } else if (state is AuthLoading) {
                   showLoadingDialog(context);
                 }
