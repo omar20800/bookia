@@ -1,7 +1,6 @@
 import 'package:bookia/core/model/user_model.dart';
 import 'package:bookia/core/service/dio_provider.dart';
 import 'package:bookia/core/service/local_helper.dart';
-import 'package:bookia/features/home/presentation/screens/home_screen.dart';
 import 'package:bookia/features/main/presentation/screens/main_screen.dart';
 import 'package:bookia/features/welcome/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';

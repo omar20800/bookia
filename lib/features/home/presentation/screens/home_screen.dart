@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:bookia/core/widgets/dialogs.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
-import 'package:bookia/features/home/presentation/cubit/home_states.dart';
 import 'package:bookia/features/home/presentation/widgets/home_slider.dart';
 import 'package:bookia/features/home/presentation/widgets/popular_books_widget.dart';
 import 'package:flutter/material.dart';

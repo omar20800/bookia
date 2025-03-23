@@ -1,7 +1,5 @@
-import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/widgets/item_seprator.dart';
 import 'package:bookia/features/wishlist/data/model/response/wish_list_response/datum.dart';
-
 import 'package:bookia/features/wishlist/presentation/widgets/wish_list_item.dart';
 import 'package:flutter/material.dart';
 

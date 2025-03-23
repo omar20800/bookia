@@ -1,13 +1,10 @@
 import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/core/widgets/custom_button.dart';
-import 'package:bookia/features/wishlist/data/model/request/wishlist_request.dart';
 import 'package:bookia/features/wishlist/data/model/response/wish_list_response/datum.dart';
-import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bookia/core/functions/discount.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WishListItem extends StatelessWidget {
