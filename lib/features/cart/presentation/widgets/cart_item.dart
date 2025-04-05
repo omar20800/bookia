@@ -6,9 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({super.key, required this.item, required this.onRemove});
+  const CartItemWidget({
+    super.key,
+    required this.item,
+    required this.onRemove,
+    required this.onAdd,
+    required this.onMinus,
+  });
   final CartItem item;
   final Function() onRemove;
+  final Function() onMinus;
+  final Function() onAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +66,11 @@ class CartItemWidget extends StatelessWidget {
                 children: [
                   SizedBox(width: 10),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (item.itemQuantity! < item.itemProductStock!) {
+                        onAdd();
+                      }
+                    },
                     child: Container(
                       height: 30,
                       width: 30,
@@ -75,11 +87,16 @@ class CartItemWidget extends StatelessWidget {
                     child: Text(
                       item.itemQuantity.toString(),
                       style: getBodyTextStyle(),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(width: 2.5),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (item.itemQuantity! > 1) {
+                        onMinus();
+                      }
+                    },
                     child: Container(
                       height: 30,
                       width: 30,

@@ -3,8 +3,5 @@ class WishlistRequest {
 
   WishlistRequest({this.id});
 
-  Map<String, dynamic> toJson() => {
-    'product_id': id,
-  };
-  
+  Map<String, dynamic> toJson() => {'product_id': id};
 }

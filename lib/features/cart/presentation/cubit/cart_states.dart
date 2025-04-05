@@ -9,4 +9,3 @@ class CartSuccess extends CartStates {}
 class CartError extends CartStates {}
 
 class CartRemoveSuccess extends CartStates {}
-

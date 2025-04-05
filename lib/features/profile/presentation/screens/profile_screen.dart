@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
           } else if (state is ProfileSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+              MaterialPageRoute(builder: (context) => WelcomeScreen()),
               (route) => false,
             );
           }

@@ -32,4 +32,16 @@ class CartCubit extends Cubit<CartStates> {
       }
     });
   }
+
+  updateCart(CartRequest params) {
+    emit(CartLoading());
+    CartRepo().upedateCart(params).then((value) {
+      if (value != null) {
+        cart = value;
+        emit(CartRemoveSuccess());
+      } else {
+        emit(CartError());
+      }
+    });
+  }
 }

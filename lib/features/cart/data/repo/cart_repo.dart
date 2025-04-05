@@ -45,4 +45,25 @@ class CartRepo {
       return null;
     }
   }
+
+  Future<CartResponse?> upedateCart(CartRequest params) async {
+    try {
+      var response = await DioProvider.post(
+        endpoint: 'update-cart',
+        data: params.toJson(),
+        headers: {
+          'Authorization':
+              'Bearer ${AppLocalStorage.getCachedUser('user')?.token}',
+        },
+      );
+      if (response.statusCode == 201) {
+        return CartResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 }

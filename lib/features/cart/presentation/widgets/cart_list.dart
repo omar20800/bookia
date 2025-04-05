@@ -4,9 +4,17 @@ import 'package:bookia/features/cart/presentation/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 
 class CartList extends StatelessWidget {
-  const CartList({super.key, required this.cartItems, required this.onRemove});
+  const CartList({
+    super.key,
+    required this.cartItems,
+    required this.onRemove,
+    required this.onAdd,
+    required this.onMinus,
+  });
   final List<CartItem> cartItems;
   final Function onRemove;
+  final Function onMinus;
+  final Function onAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +24,12 @@ class CartList extends StatelessWidget {
         itemBuilder: (context, index) {
           return CartItemWidget(
             item: cartItems[index],
+            onMinus: () {
+              onMinus(index);
+            },
+            onAdd: () {
+              onAdd(index);
+            },
             onRemove: () {
               onRemove(index);
             },

@@ -7,7 +7,7 @@ import 'package:bookia/core/widgets/dialogs.dart';
 import 'package:bookia/features/auth/data/model/request/auth_request.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_states.dart';
-import 'package:bookia/features/auth/presentation/widgets/input_field.dart';
+import 'package:bookia/core/widgets/input_field.dart';
 import 'package:bookia/features/auth/presentation/screens/forgot%20password/otp_verification.dart';
 import 'package:bookia/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/register_login.dart';

@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WishListItem extends StatelessWidget {
-  const WishListItem({super.key, required this.item, required this.onRemove, required this.onAddToCart});
+  const WishListItem({
+    super.key,
+    required this.item,
+    required this.onRemove,
+    required this.onAddToCart,
+  });
   final Datum item;
   final Function() onRemove;
   final Function() onAddToCart;

@@ -32,6 +32,7 @@ class WishlistCubit extends Cubit<WishlistStates> {
       }
     });
   }
+
   addtoCart(WishlistRequest params) {
     WishlistRepo().addtoCart(params).then((value) {
       if (value != null) {
