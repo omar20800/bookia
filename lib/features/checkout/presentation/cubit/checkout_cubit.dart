@@ -1,7 +1,6 @@
 import 'package:bookia/features/checkout/data/model/request/place_order_request.dart';
 import 'package:bookia/features/checkout/data/repo/checkout_repo.dart';
 import 'package:bookia/features/checkout/presentation/cubit/checkout_states.dart';
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutCubit extends Cubit<CheckoutStates> {

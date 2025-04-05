@@ -11,6 +11,7 @@ import 'package:bookia/features/checkout/presentation/screens/checkout_screen.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class MycartScreen extends StatelessWidget {
   MycartScreen({super.key});
   String? total;

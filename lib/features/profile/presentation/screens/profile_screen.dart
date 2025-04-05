@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bookia/core/utils/appcolour.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/core/widgets/dialogs.dart';
